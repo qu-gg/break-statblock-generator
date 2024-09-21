@@ -54,8 +54,7 @@ function UpdateStatblock(moveSeparationPoint) {
 
     // Name and type
     $("#monster-name").html(StringFunctions.RemoveHtmlTags(mon.name));
-    $("#monster-type").html(StringFunctions.StringCapitalize(StringFunctions.RemoveHtmlTags(mon.size) + ", " + mon.type +
-        (mon.tag == "" ? ", " : " (" + mon.tag + ")")));
+    $("#monster-type").html(StringFunctions.StringCapitalize(StringFunctions.RemoveHtmlTags(mon.size) + ", " + mon.type));
 
     // Armor Class
     $("#attack-bonus").html(StringFunctions.FormatString(StringFunctions.RemoveHtmlTags(StringFunctions.GetAttackBonus())));
