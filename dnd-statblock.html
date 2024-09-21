@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>D&amp;D 5e Statblock Generator</title>
+    <link rel="shortcut icon" type="image/x-icon" href="" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/statblock-style.css">
+    <link rel="stylesheet" type="text/css" href="css/statblock-page-style.css">
+    <link rel="stylesheet" type="text/css" href="css/dnd-style.css">
+    <link rel="stylesheet" type="text/css" href="css/libre-baskerville.css">
+    <link rel="stylesheet" type="text/css" href="css/noto-sans.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/dom-to-image.min.js"></script>
+    <script src="js/statblock-script.js"></script>
+</head>
+
+<body id="stat-block-body" style="min-width: 1000px;">
+    <div class="container" style="text-align: center;">
+        <div class="content">
+            <br>
+            <h1>BREAK!! Statblock Generator</h1>
+            <p>Based on <a href="https://github.com/Tetra-cube/Tetra-cube.github.io/blob/master/dnd/dnd-statblock.html">Tetra-cube's 5e Generator</a></p>
+
+            <!-- The Actual Stat Block -->
+            <div id="stat-block-wrapper">
+                <div id="stat-block" class="stat-block">
+                    <hr class="orange-border" />
+                    <div class="section-left">
+                        <div class="creature-heading">
+                            <h1 id="monster-name">Monster</h1>
+                            <h2 id="monster-type">Size, type</h2>
+                        </div> <!-- creature heading -->
+
+                        <svg height="5" width="100%" class="tapered-rule">
+                            <polyline points="0,0 400,2.5 0,5"></polyline>
+                        </svg>
+
+                        <div class="top-stats">
+                            <div class="property-line first">
+                                <h4>Attack Bonus</h4>
+                                <p id="attack-bonus"></p>
+                            </div> <!-- property line -->
+
+                            <div class="property-line">
+                                <h4>Defense Rating</h4>
+                                <p id="defense-rating"></p>
+                            </div> <!-- property line -->
+
+                            <div class="property-line">
+                                <h4>Hearts</h4>
+                                <p id="hearts"></p>
+                            </div> <!-- property line -->
+
+                            <div class="property-line last">
+                                <h4>Speed</h4>
+                                <p id="speed"></p>
+                            </div> <!-- property line -->
+
+                            <svg height="5" width="100%" class="tapered-rule">
+                                <polyline points="0,0 400,2.5 0,5"></polyline>
+                            </svg>
+
+                            <div class="scores">
+                                <div class="scores-might">
+                                    <h4>MGT</h4>
+                                    <p id="mgtpts"></p>
+                                </div> <!-- scores strength -->
+                                <div class="scores-deftness">
+                                    <h4>DFT</h4>
+                                    <p id="dftpts"></p>
+                                </div> <!-- scores dexterity -->
+                                <div class="scores-grit">
+                                    <h4>GRT</h4>
+                                    <p id="grtpts"></p>
+                                </div> <!-- scores constitution -->
+                                <div class="scores-insight">
+                                    <h4>INS</h4>
+                                    <p id="inspts"></p>
+                                </div> <!-- scores intelligence -->
+                                <div class="scores-aura">
+                                    <h4>AUR</h4>
+                                    <p id="aurpts"></p>
+                                </div> <!-- scores wisdom -->
+                            </div> <!-- scores -->
+                            <svg height="5" width="100%" class="tapered-rule">
+                                <polyline points="0,0 400,2.5 0,5"></polyline>
+                            </svg>
+                            <div id="properties-list"></div>
+                        </div> <!-- top stats -->
+                        <svg height="5" width="100%" class="tapered-rule">
+                            <polyline points="0,0 400,2.5 0,5"></polyline>
+                        </svg>
+                        <div class="actions">
+                            <div id="traits-list-left"></div>
+                        </div> <!-- actions -->
+                    </div> <!-- section left -->
+                    <div class="section-right">
+                        <div class="actions">
+                            <div id="traits-list-right"></div>
+                        </div> <!-- actions -->
+                    </div> <!-- section right -->
+                    <hr class="orange-border bottom" />
+                </div>
+            </div> 
+            <!-- stat block -->
+
+            <div class="options">
+                <button type="button" onclick="UpdateBlockFromVariables(0)">Update Statblock</button>                
+                <button onclick="TryImage()">View Image</button>
+                <hr>
+                <table id="type-form">
+                    <tr>
+                        <td>
+                            <label for="name-input">Name: <br><input id="name-input" type="text"
+                                    value="Adversary"></label>
+                        </td>
+                        <td>
+                            <label for="size-input">Size: <br>
+                                <select id="size-input">
+                                    <option value="tiny">Tiny</option>
+                                    <option value="small">Small</option>
+                                    <option value="medium" selected="selected">Medium</option>
+                                    <option value="large">Large</option>
+                                    <option value="massive">Massive</option>
+                                    <option value="colossal">Colossal</option>
+                                </select>
+                            </label>
+                        </td>
+                        <td>
+                            <label for="type-input">Type: <br><input id="type-input" type="text"
+                                    value="Type"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="hearts-input-prompt"><label for="hearts-input">Hearts: <br><input type="number"
+                                        id="hearts-input" min="1" max="999" value="1"></label></div>
+                        </td>
+                        <td>
+                            <div id="defenserating-input-prompt"><label for="defenserating-input">Defense Rating: <br><input type="number"
+                                        id="defenserating-input" min="1" max="999" value="10"></label></div>
+                        </td>
+                        <td>
+                            <div id="attackbonus-input-prompt"><label for="attackbonus-input">Attack Bonus: <br><input type="number"
+                                        id="attackbonus-input" min="1" max="999" value="0"></label></div>
+                        </td>
+                    </tr>
+                    <td>
+                        <label for="speed-input">Speed Rating: <br>
+                            <select id="speed-input">
+                                <option value="Slow">Slow</option>
+                                <option value="Average" selected="selected">Average</option>
+                                <option value="Fast">Fast</option>
+                                <option value="Very Fast">Very Fast</option>
+                            </select>
+                        </label>
+                    </td>
+                </table>
+                <hr>
+                <table id="monster-stats-form">
+                    <tr>
+                        <td><label for="mgt-input">MGT: <br><input type="number" id="mgt-input" min="1" max="20"
+                                    value="6"</label></td>
+                        <td><label for="dft-input">DFT: <br><input type="number" id="dft-input" min="1" max="20"
+                                    value="6"</label></td>
+                        <td><label for="grt-input">GRT: <br><input type="number" id="grt-input" min="1" max="20"
+                                    value="6"</label></td>
+                        <td><label for="ins-input">INS: <br><input type="number" id="ins-input" min="1" max="20"
+                                    value="6"</label></td>
+                        <td><label for="aur-input">AUR: <br><input type="number" id="aur-input" min="1" max="20"
+                                    value="6"</label></td>
+                    </tr>
+                </table>
+                <hr>
+                <table>
+                    <tr>
+                        <td id="languages-form">
+                            <label for="languages-input">Languages:<br>
+                                <select id="languages-input" onchange="FormFunctions.ShowHideLanguageOther()">
+                                    <option value="Common Tongue">Common Tongue</option>
+                                    <option value="Dark Tongue">Dark Tongue</option>
+                                    <option value="Creators Speech">Creators Speech</option>
+                                    <option value="*">Other</option>
+                                </select>
+                            </label>
+                            <div>
+                                <input id="other-language-input" type="text" value="">
+                            </div>
+                            <div>
+                                <button type="button" onclick="InputFunctions.AddLanguageInput(true)">Add</button>
+                            </div>
+                            <div id="languages-input-section">
+                                <ul id="languages-input-list" class="statblock-list"></ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <hr>
+                <b>Abilities:</b>
+                <div><label for="abilities-name-input" style="width: 100%;">Name: <input id="abilities-name-input"
+                            type="text" value="" style="margin-right: 40px; width: 30%;"></label></div>
+                <div><textarea id="abilities-desc-input" style="height: 10em;"></textarea></div>
+                <div>
+                    <button type="button" id="add-ability-button"
+                        onclick="InputFunctions.AddAbilityInput('abilities')">Add Weapon</button>
+                    <button type="button" id="add-action-button"
+                        onclick="InputFunctions.AddAbilityInput('actions')">Add Ability</button>
+                </div>
+                <div>
+                    <label for="format-helper-checkbox">Show Formatting Help: <input type="checkbox"
+                            id="format-helper-checkbox" onclick="FormFunctions.ShowHideFormatHelper()"></label>
+                </div>
+                <div id="format-helper" style="text-align: left; padding: 0 2rem;">
+                    <br>
+                    <div>Use _ to italicize and ** to bold. For Spellcasting lists, use > to reverse-indent.</div>
+                    <br>
+                    <div><b>[MON]</b>: Shows the monster's name.</div>
+                    <div><b>[CHA]</b>: Shows the monster's charisma modifier.</div>
+                    <div><b>[3D6]</b>: Computes 3d6.</div>
+                    <div><b>[STR ATK]</b>: Calculates the modifier to the monster's attack roll for a strength-based
+                        attack.</div>
+                    <div><b>[DEX 2D8]</b>: Calculates the damage roll for a dexterity-based attack with damage dice 2d8.
+                    </div>
+                    <div><b>[WIS SAVE]</b>: Calculates the save DC vs the monster's wisdom.</div>
+                    <div><b>[3D6 + 1], [STR ATK - 2], [WIS SAVE + 3]</b>: Adds a modifier to the given values.</div>
+                    <br>
+                </div>
+                <div style="text-align: left; min-height: 5rem;">
+                    <div id="abilities-input-section"><b>Weapons:</b><br>
+                        <ul id="abilities-input-list" class="statblock-list"></ul>
+                    </div>
+                    <div id="actions-input-section"><b>Abilities:</b><br>
+                        <ul id="actions-input-list" class="statblock-list"></ul>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
