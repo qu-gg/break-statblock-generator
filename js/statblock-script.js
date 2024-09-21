@@ -3,7 +3,7 @@ var data;
 var mon = {
     name: "Adversary",
     size: "medium",
-    type: "",
+    type: "Creature",
     hearts: 1,
     defenseRating: 10,
     speed: "Average",
