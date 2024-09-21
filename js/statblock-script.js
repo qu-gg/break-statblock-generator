@@ -408,6 +408,9 @@ var GetVariablesFunctions = {
         mon.size = $("#size-input").val().toLowerCase();
         mon.type = $("#type-input").val();
 
+        // Attack Bonus
+        mon.attackBonus = $("#attackbonus-input").val();
+
         // Armor Class
         mon.defenseRating = $("#defenserating-input").val();
 
